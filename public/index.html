@@ -9,36 +9,40 @@
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fffdf5; color: #1a1a18; min-height: 100vh; }
 
   header {
-    background: #fff;
-    border-bottom: 1px solid #f0ead6;
-    padding: 16px 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    background: #fff; border-bottom: 1px solid #f0ead6; padding: 14px 32px;
+    display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; flex-wrap: wrap;
   }
   .logo { font-size: 24px; }
   .brand { font-size: 18px; font-weight: 600; color: #7c4f1a; }
   .brand span { color: #e8a020; }
-  .badge { font-size: 11px; background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 99px; font-weight: 500; margin-left: 4px; }
+  .badge { font-size: 11px; background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 99px; font-weight: 500; }
   .last-update { margin-left: auto; font-size: 12px; color: #aaa; }
 
-  main { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+  nav.tabs { display: flex; gap: 4px; max-width: 1100px; margin: 0 auto; padding: 16px 20px 0; flex-wrap: wrap; }
+  nav.tabs button {
+    background: none; border: 1px solid transparent; border-radius: 10px; padding: 8px 16px;
+    font-size: 14px; color: #8a7a60; cursor: pointer; font-weight: 500;
+  }
+  nav.tabs button.active { background: #fff; border-color: #f0ead6; color: #7c4f1a; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 20px 60px; }
+  .tab { display: none; }
+  .tab.active { display: block; }
 
   h2 { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
-
   section { margin-bottom: 28px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .section-head h2 { margin-bottom: 0; }
+  .section-head .spacer { flex: 1; }
 
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .stat { background: #fff; border: 1px solid #f0ead6; border-radius: 12px; padding: 18px 20px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat { background: #fff; border: 1px solid #f0ead6; border-radius: 12px; padding: 16px 18px; }
   .stat-label { font-size: 12px; color: #aaa; margin-bottom: 6px; }
-  .stat-value { font-size: 26px; font-weight: 600; color: #7c4f1a; }
+  .stat-value { font-size: 24px; font-weight: 600; color: #7c4f1a; }
+  .stat-value.warn { color: #c0392b; }
+  .stat-sub { font-size: 11px; color: #bbb; margin-top: 4px; }
 
-  /* Inventory */
-  .inv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .inv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
   .inv-card { background: #fff; border: 1px solid #f0ead6; border-radius: 12px; padding: 18px 20px; }
   .inv-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
   .inv-name { font-weight: 600; font-size: 15px; }
@@ -50,39 +54,74 @@
   .bar-fill { height: 100%; border-radius: 99px; transition: width .4s; }
   .bar-fill.ok  { background: #e8a020; }
   .bar-fill.low { background: #c0392b; }
-  .stock-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .stock-row label { font-size: 12px; color: #aaa; }
-  .stock-row input { width: 68px; padding: 6px 8px; border: 1px solid #e8dcc8; border-radius: 8px; font-size: 14px; text-align: center; background: #fffdf5; }
-  .btn-save { padding: 6px 14px; background: #e8a020; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
-  .btn-save:hover { background: #c98a10; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .row label { font-size: 12px; color: #999; min-width: 96px; }
+  input, select, textarea {
+    padding: 7px 9px; border: 1px solid #e8dcc8; border-radius: 8px; font-size: 14px;
+    background: #fffdf5; font-family: inherit; color: inherit;
+  }
+  input[type=number] { width: 90px; }
+  input.wide, select.wide, textarea.wide { width: 100%; }
 
-  /* Orders */
-  .orders-wrap { background: #fff; border: 1px solid #f0ead6; border-radius: 12px; overflow-x: auto; }
-  table { width: 100%; min-width: 780px; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: .05em; padding: 11px 16px; border-bottom: 1px solid #f0ead6; background: #fffdf5; }
-  td { padding: 11px 16px; border-bottom: 1px solid #faf5e8; color: #1a1a18; vertical-align: middle; }
+  .btn { padding: 7px 14px; background: #e8a020; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .btn:hover { background: #c98a10; }
+  .btn.secondary { background: #fff; color: #7c4f1a; border: 1px solid #e8dcc8; }
+  .btn.secondary:hover { background: #fffbf0; }
+  .btn.small { padding: 4px 10px; font-size: 12px; }
+  .btn.danger { background: #fff; color: #b71c1c; border: 1px solid #f3c6cf; }
+
+  .table-wrap { background: #fff; border: 1px solid #f0ead6; border-radius: 12px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.wide { min-width: 900px; }
+  th { text-align: left; font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: .05em; padding: 10px 14px; border-bottom: 1px solid #f0ead6; background: #fffdf5; white-space: nowrap; }
+  td { padding: 10px 14px; border-bottom: 1px solid #faf5e8; vertical-align: middle; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #fffbf0; }
+  tbody tr:hover td { background: #fffbf0; }
+  tfoot td { font-weight: 600; background: #fffdf5; border-top: 1px solid #f0ead6; }
+  .muted { color: #aaa; font-size: 12px; }
+  .empty-row td { text-align: center; color: #ccc; padding: 36px; }
 
-  .pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 99px; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
   .pill-green  { background: #e8f5e9; color: #2e7d32; }
   .pill-blue   { background: #e3f2fd; color: #1565c0; }
   .pill-red    { background: #fce4ec; color: #b71c1c; }
   .pill-yellow { background: #fff8e1; color: #e65100; }
+  .pill-grey   { background: #f3f0e8; color: #8a7a60; }
 
-  select { padding: 4px 8px; border: 1px solid #e8dcc8; border-radius: 6px; font-size: 12px; background: #fffdf5; cursor: pointer; }
-  .map-link { color: #e8a020; text-decoration: none; font-size: 12px; font-weight: 500; }
-  .map-link:hover { text-decoration: underline; }
-  .empty-row td { text-align: center; color: #ccc; padding: 40px; }
+  a.link { color: #e8a020; text-decoration: none; font-size: 12px; font-weight: 500; }
+  a.link:hover { text-decoration: underline; }
+
+  .period { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .modal { position: fixed; inset: 0; background: rgba(40, 30, 10, .35); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; z-index: 50; overflow-y: auto; }
+  .modal.hidden { display: none; }
+  .modal-box { background: #fff; border-radius: 14px; width: 100%; max-width: 520px; padding: 22px 22px 18px; box-shadow: 0 10px 40px rgba(0,0,0,.15); }
+  .modal-box h3 { font-size: 17px; color: #7c4f1a; margin-bottom: 14px; }
+  .field { margin-bottom: 12px; }
+  .field > label { display: block; font-size: 12px; color: #999; margin-bottom: 4px; }
+  .field-row { display: flex; gap: 10px; }
+  .field-row .field { flex: 1; }
+  .field-row input { width: 100%; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  .modal-error { color: #b71c1c; font-size: 13px; margin-top: 8px; min-height: 1em; }
+  .total-preview { font-size: 15px; font-weight: 600; color: #7c4f1a; margin-top: 4px; }
+  .hidden { display: none !important; }
+
+  .demo-banner { background: #fff3cd; border-bottom: 1px solid #f0d78a; color: #7a5b00; font-size: 13px; padding: 10px 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .demo-banner.hidden { display: none; }
 
   .toast { position: fixed; bottom: 20px; right: 20px; background: #7c4f1a; color: #fff; padding: 11px 18px; border-radius: 10px; font-size: 13px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 99; }
   .toast.show { opacity: 1; }
+  .toast.error { background: #b71c1c; }
 
-  @media (max-width: 600px) {
-    .stats { grid-template-columns: 1fr 1fr; }
-    .inv-grid { grid-template-columns: 1fr; }
-    header { padding: 14px 16px; }
-    main { padding: 20px 14px; }
+  @media (max-width: 700px) {
+    header { padding: 12px 16px; }
+    main { padding: 16px 12px 60px; }
+    nav.tabs { padding: 12px 12px 0; }
+    .two-col { grid-template-columns: 1fr; }
+    .field-row { flex-direction: column; gap: 0; }
   }
 </style>
 </head>
@@ -93,194 +132,888 @@
   <span class="brand">Clara <span>&</span> Sol</span>
   <span class="badge">● Bot activo</span>
   <span class="last-update" id="lastUpdate">Actualizando…</span>
+  <a class="link" id="demoLink" href="/demo" title="Practica con datos inventados">🧪 Ver demo</a>
 </header>
+
+<div class="demo-banner hidden" id="demoBanner">
+  🧪 <strong>Modo demo:</strong> datos de práctica inventados. Nada de aquí afecta tus pedidos, inventario ni el bot.
+  <button class="btn small secondary" onclick="resetDemo()">Reiniciar datos demo</button>
+  <a class="link" href="/">Ir al dashboard real →</a>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="orders" class="active">📦 Pedidos</button>
+  <button data-tab="inventory">🥚 Inventario</button>
+  <button data-tab="reports">📊 Reportes</button>
+  <button data-tab="customers">👥 Clientes</button>
+</nav>
 
 <main>
 
-  <section>
-    <h2>Resumen de hoy</h2>
-    <div class="stats">
-      <div class="stat"><div class="stat-label">Pedidos hoy</div><div class="stat-value" id="s-orders">—</div></div>
-      <div class="stat"><div class="stat-label">Cartones vendidos</div><div class="stat-value" id="s-cartons">—</div></div>
-      <div class="stat"><div class="stat-label">Ventas (MXN)</div><div class="stat-value" id="s-sales">—</div></div>
-      <div class="stat"><div class="stat-label">Stock total</div><div class="stat-value" id="s-stock">—</div></div>
-    </div>
-  </section>
+  <!-- ───────── PEDIDOS ───────── -->
+  <div class="tab active" id="tab-orders">
+    <section>
+      <h2>Resumen de hoy</h2>
+      <div class="stats" id="todayStats"></div>
+    </section>
 
-  <section>
-    <h2>Inventario</h2>
-    <div class="inv-grid" id="invGrid">
-      <div class="inv-card" style="color:#ccc;padding:30px;text-align:center">Cargando…</div>
-    </div>
-  </section>
+    <section>
+      <div class="section-head">
+        <h2>Pedidos</h2>
+        <span class="spacer"></span>
+        <select id="orderFilter">
+          <option value="all">Todos</option>
+          <option value="active">Activos (sin entregar)</option>
+          <option value="unpaid">Con saldo pendiente</option>
+          <option value="cancelled">Cancelados</option>
+        </select>
+        <button class="btn" onclick="openNewOrder()">+ Pedido manual</button>
+      </div>
+      <div class="table-wrap">
+        <table class="wide">
+          <thead>
+            <tr>
+              <th>#</th><th>Cliente</th><th>Producto</th><th class="num">Cant.</th>
+              <th class="num">Total</th><th>Pago</th><th>Ubicación</th><th>Estado</th><th>Fecha</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"><tr class="empty-row"><td colspan="10">Cargando pedidos…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
-  <section>
-    <h2>Pedidos recientes</h2>
-    <div class="orders-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cant.</th>
-            <th>Total</th>
-            <th>Ubicación</th>
-            <th>Estado</th>
-            <th>Fecha / Hora</th>
-          </tr>
-        </thead>
-        <tbody id="ordersBody">
-          <tr class="empty-row"><td colspan="8">Cargando pedidos…</td></tr>
-        </tbody>
-      </table>
+  <!-- ───────── INVENTARIO ───────── -->
+  <div class="tab" id="tab-inventory">
+    <section>
+      <h2>Inventario</h2>
+      <div class="inv-grid" id="invGrid"></div>
+    </section>
+    <section>
+      <h2>Movimientos de inventario</h2>
+      <div class="table-wrap">
+        <table class="wide">
+          <thead>
+            <tr><th>Fecha</th><th>Producto</th><th class="num">Cambio</th><th>Motivo</th><th>Pedido</th><th class="num">Stock después</th><th>Nota</th></tr>
+          </thead>
+          <tbody id="movesBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- ───────── REPORTES ───────── -->
+  <div class="tab" id="tab-reports">
+    <div class="period">
+      <select id="periodSel">
+        <option value="today">Hoy</option>
+        <option value="yesterday">Ayer</option>
+        <option value="week">Esta semana</option>
+        <option value="lastweek">Semana pasada</option>
+        <option value="month">Este mes</option>
+        <option value="lastmonth">Mes pasado</option>
+        <option value="year">Este año</option>
+        <option value="custom">Personalizado…</option>
+      </select>
+      <span id="customRange" class="hidden">
+        <input type="date" id="fromDate"> a <input type="date" id="toDate">
+      </span>
+      <span class="muted" id="periodLabel"></span>
+      <span style="flex:1"></span>
+      <button class="btn secondary" onclick="exportSales()">⬇ Ventas (CSV)</button>
+      <button class="btn secondary" onclick="exportPayments()">⬇ Pagos (CSV)</button>
     </div>
-  </section>
+
+    <section>
+      <div class="stats" id="reportStats"></div>
+    </section>
+
+    <div class="two-col">
+      <section>
+        <h2>Por producto</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Producto</th><th class="num">Pedidos</th><th class="num">Cant.</th><th class="num">Piezas</th><th class="num">Vendido</th></tr></thead>
+            <tbody id="byProduct"></tbody>
+            <tfoot id="byProductFoot"></tfoot>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Cobros por método</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Método</th><th class="num">Pagos</th><th class="num">Monto</th></tr></thead>
+            <tbody id="byMethod"></tbody>
+            <tfoot id="byMethodFoot"></tfoot>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <section>
+      <h2>Por día</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th class="num">Pedidos</th><th class="num">Piezas</th><th class="num">Vendido</th><th class="num">Cobrado</th></tr></thead>
+          <tbody id="byDay"></tbody>
+          <tfoot id="byDayFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ventas por cliente (periodo)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cliente</th><th class="num">Pedidos</th><th class="num">Piezas</th><th class="num">Vendido</th><th class="num">Cobrado</th></tr></thead>
+          <tbody id="byCustomer"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Cuentas por cobrar (todas las fechas)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cliente</th><th>Teléfono</th><th class="num">Vendido</th><th class="num">Pagado</th><th class="num">Saldo</th><th></th></tr></thead>
+          <tbody id="receivables"></tbody>
+          <tfoot id="receivablesFoot"></tfoot>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- ───────── CLIENTES ───────── -->
+  <div class="tab" id="tab-customers">
+    <section>
+      <div class="section-head">
+        <h2>Clientes</h2>
+        <span class="spacer"></span>
+        <input type="search" id="custSearch" placeholder="Buscar nombre, teléfono o zona">
+        <button class="btn" onclick="openCustomer()">+ Nuevo cliente</button>
+      </div>
+      <div class="table-wrap">
+        <table class="wide">
+          <thead>
+            <tr><th>Cliente</th><th>Teléfono</th><th>Zona</th><th class="num">Pedidos</th><th class="num">Comprado</th><th class="num">Pagado</th><th class="num">Saldo</th><th>Última compra</th><th></th></tr>
+          </thead>
+          <tbody id="customersBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
 </main>
+
+<div class="modal hidden" id="modal">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+    <div class="modal-error" id="modalError"></div>
+    <div class="modal-actions">
+      <button class="btn secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn" id="modalOk">Guardar</button>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  function showToast(msg) {
+  // ─── State & helpers ──────────────────────────────────────────────────────
+  let DATA = null;
+  let CALC = null;
+  let currentTab = 'orders';
+  let modalOkHandler = null;
+
+  const STATUS = {
+    accepted:  { label: 'Aceptado',  cls: 'pill-green'  },
+    preparing: { label: 'En camino', cls: 'pill-yellow' },
+    delivered: { label: 'Entregado', cls: 'pill-blue'   },
+    cancelled: { label: 'Cancelado', cls: 'pill-red'    },
+  };
+  const METHODS = { efectivo: 'Efectivo', transferencia: 'Transferencia', tarjeta: 'Tarjeta', otro: 'Otro' };
+  const MOVE_REASONS = { restock: 'Entrada', order: 'Pedido', cancel: 'Cancelación', reactivate: 'Reactivado', adjust: 'Ajuste de conteo' };
+
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = n => '$' + Number(n || 0).toLocaleString('es-MX', { maximumFractionDigits: 2 });
+  const num = n => Number(n || 0).toLocaleString('es-MX');
+  const round2 = n => Math.round(n * 100) / 100;
+
+  function dayKey(d) {
+    d = new Date(d);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function keyToDate(k) { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); }
+  function fmtDay(k) { return keyToDate(k).toLocaleDateString('es-MX', { weekday: 'short', day: '2-digit', month: 'short' }); }
+  function fmtDateTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' }) + ' · ' +
+           d.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+  }
+  function todayKey() { return dayKey(new Date()); }
+
+  function showToast(msg, isError) {
     const t = document.getElementById('toast');
     t.textContent = msg;
+    t.classList.toggle('error', !!isError);
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
+    setTimeout(() => t.classList.remove('show'), 2800);
   }
 
-  async function loadData() {
+  // /demo uses its own practice data; everything else uses the real data
+  const DEMO = location.pathname.replace(/\/+$/, '') === '/demo';
+  const BASE = DEMO ? '/demo' : '';
+
+  async function api(url, body, method) {
+    const r = await fetch(BASE + url, {
+      method: method || (body ? 'POST' : 'GET'),
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    let json = {};
+    try { json = await r.json(); } catch (e) {}
+    if (!r.ok) throw new Error(json.error || 'Error ' + r.status);
+    return json;
+  }
+
+  function customerName(c) {
+    if (!c) return 'Sin cliente';
+    return c.name || c.phone || ('Cliente #' + c.id);
+  }
+
+  // ─── Derived numbers: what each order and customer has paid ──────────────
+  // Payments linked to an order count for that order. General payments (no order,
+  // e.g. a weekly payment from a wholesale client) are applied to that customer's
+  // oldest unpaid orders first, the same way a running balance works in the sheet.
+  function compute(data) {
+    const custById = {};
+    data.customers.forEach(c => custById[c.id] = c);
+
+    const paidByOrder = {};
+    data.orders.forEach(o => paidByOrder[o.id] = 0);
+    data.payments.forEach(p => { if (p.orderId && paidByOrder[p.orderId] !== undefined) paidByOrder[p.orderId] += p.amount; });
+
+    const custStats = {};
+    data.customers.forEach(c => custStats[c.id] = { orders: 0, pieces: 0, billed: 0, paid: 0, lastOrder: null });
+
+    const byCustomer = {};
+    data.orders.forEach(o => {
+      if (o.status === 'cancelled') return;
+      const s = custStats[o.customerId];
+      if (s) {
+        s.orders++; s.pieces += o.pieces || 0; s.billed += o.total;
+        if (!s.lastOrder || o.createdAt > s.lastOrder) s.lastOrder = o.createdAt;
+      }
+      (byCustomer[o.customerId] = byCustomer[o.customerId] || []).push(o);
+    });
+    data.payments.forEach(p => { if (custStats[p.customerId]) custStats[p.customerId].paid += p.amount; });
+
+    // Spread general payments over the oldest open orders
+    const general = {};
+    data.payments.forEach(p => { if (!p.orderId) general[p.customerId] = (general[p.customerId] || 0) + p.amount; });
+    Object.entries(general).forEach(([cid, amount]) => {
+      let left = amount;
+      (byCustomer[cid] || []).sort((a, b) => a.createdAt.localeCompare(b.createdAt)).forEach(o => {
+        if (left <= 0) return;
+        const due = o.total - paidByOrder[o.id];
+        if (due > 0) { const use = Math.min(due, left); paidByOrder[o.id] += use; left -= use; }
+      });
+    });
+
+    Object.values(custStats).forEach(s => { s.billed = round2(s.billed); s.paid = round2(s.paid); s.balance = round2(s.billed - s.paid); });
+    Object.keys(paidByOrder).forEach(k => paidByOrder[k] = round2(paidByOrder[k]));
+    return { custById, paidByOrder, custStats };
+  }
+
+  function orderBalance(o) { return o.status === 'cancelled' ? 0 : round2(o.total - (CALC.paidByOrder[o.id] || 0)); }
+
+  // ─── Loading & rendering ──────────────────────────────────────────────────
+  function isEditing() {
+    if (!document.getElementById('modal').classList.contains('hidden')) return true;
+    const ae = document.activeElement;
+    return !!(ae && ae.closest && ae.closest('main') && ae.matches('input:not([type=search]), select, textarea'));
+  }
+
+  async function loadData(force) {
     try {
-      const r = await fetch('/api/data');
-      if (!r.ok) throw new Error('Auth error');
-      const data = await r.json();
-      render(data);
+      const data = await api('/api/data');
+      DATA = data;
+      CALC = compute(data);
+      if (force || !isEditing()) renderAll();
       document.getElementById('lastUpdate').textContent =
         'Actualizado: ' + new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
     } catch (e) {
       console.error(e);
+      document.getElementById('lastUpdate').textContent = 'Sin conexión — reintentando…';
     }
   }
 
-  function render(data) {
-    const today = new Date().toDateString();
-    const todayOrders = data.orders.filter(o =>
-      new Date(o.createdAt).toDateString() === today && o.status === 'accepted'
-    );
+  function renderAll() {
+    if (!DATA) return;
+    renderOrders();
+    renderInventory();
+    renderReports();
+    renderCustomers();
+  }
 
-    document.getElementById('s-orders').textContent  = todayOrders.length;
-    document.getElementById('s-cartons').textContent = todayOrders.reduce((s, o) => s + o.quantity, 0);
-    document.getElementById('s-sales').textContent   = '$' + todayOrders.reduce((s, o) => s + o.total, 0);
-    document.getElementById('s-stock').textContent   = Object.values(data.inventory).reduce((s, v) => s + v.stock, 0);
+  // ─── Pedidos ──────────────────────────────────────────────────────────────
+  function renderOrders() {
+    const tk = todayKey();
+    const todays = DATA.orders.filter(o => dayKey(o.createdAt) === tk && o.status !== 'cancelled');
+    const collectedToday = DATA.payments.filter(p => p.date === tk).reduce((s, p) => s + p.amount, 0);
+    const owed = Object.values(CALC.custStats).reduce((s, c) => s + Math.max(0, c.balance), 0);
+    const stock = Object.values(DATA.inventory).reduce((s, v) => s + v.stock, 0);
+    document.getElementById('todayStats').innerHTML = [
+      stat('Pedidos hoy', todays.length),
+      stat('Huevos vendidos', num(todays.reduce((s, o) => s + (o.pieces || 0), 0))),
+      stat('Ventas hoy', money(todays.reduce((s, o) => s + o.total, 0))),
+      stat('Cobrado hoy', money(collectedToday)),
+      stat('Por cobrar (total)', money(owed), owed > 0 ? 'warn' : ''),
+      stat('Cartones en stock', num(stock)),
+    ].join('');
 
-    // Inventory cards (skip redraw while someone is typing in them, so the 15s refresh doesn't wipe their input)
-    const ae = document.activeElement;
-    const editingInv = !!(ae && ae.closest && ae.closest('#invGrid'));
-    if (!editingInv) document.getElementById('invGrid').innerHTML = Object.entries(data.inventory).map(([key, inv]) => {
-      const pct = Math.min(100, Math.round((inv.stock / 100) * 100));
+    const filter = document.getElementById('orderFilter').value;
+    let list = [...DATA.orders].sort((a, b) => b.createdAt.localeCompare(a.createdAt) || b.id - a.id);
+    if (filter === 'active')    list = list.filter(o => o.status === 'accepted' || o.status === 'preparing');
+    if (filter === 'unpaid')    list = list.filter(o => orderBalance(o) > 0.009);
+    if (filter === 'cancelled') list = list.filter(o => o.status === 'cancelled');
+
+    const body = document.getElementById('ordersBody');
+    if (!list.length) { body.innerHTML = '<tr class="empty-row"><td colspan="10">No hay pedidos aquí 🌻</td></tr>'; return; }
+
+    body.innerHTML = list.slice(0, 200).map(o => {
+      const c = CALC.custById[o.customerId];
+      const phone = (c && c.phone) || (o.phone || '').replace('whatsapp:', '');
+      const digits = phone.replace(/\D/g, '');
+      const hasName = !!(c && c.name);
+      const who = (hasName || !digits ? `<div style="font-weight:500">${esc(customerName(c))}</div>` : '') +
+        (digits ? `<a class="link" href="https://wa.me/${digits}" target="_blank" rel="noopener">💬 ${esc(phone)}</a>` : '');
+      const loc = o.location
+        ? `<a class="link" href="https://maps.google.com/?q=${encodeURIComponent(o.location.latitude + ',' + o.location.longitude)}" target="_blank" rel="noopener">📍 Ver mapa</a>`
+        : (c && c.mapsUrl && /^https?:\/\//.test(c.mapsUrl) ? `<a class="link" href="${esc(c.mapsUrl)}" target="_blank" rel="noopener">📍 Mapa cliente</a>` : '<span class="muted">—</span>');
+
+      const bal = orderBalance(o);
+      let pay;
+      if (o.status === 'cancelled') pay = '<span class="pill pill-grey">—</span>';
+      else if (bal <= 0.009) pay = '<span class="pill pill-green">Pagado</span>';
+      else if (bal < o.total) pay = `<span class="pill pill-yellow">Debe ${money(bal)}</span>`;
+      else pay = `<span class="pill pill-red">Pendiente</span>`;
+
+      const sel = `<select onchange="updateStatus(${o.id}, this)" data-prev="${o.status}">` +
+        Object.entries(STATUS).map(([v, s]) => `<option value="${v}" ${o.status === v ? 'selected' : ''}>${s.label}</option>`).join('') +
+        '</select>';
+
+      return `<tr>
+        <td style="font-weight:600;color:#7c4f1a">#${o.id}${o.source === 'manual' ? '<div class="muted">manual</div>' : ''}</td>
+        <td>${who}</td>
+        <td>${esc(o.productLabel)}${o.note ? `<div class="muted">${esc(o.note)}</div>` : ''}</td>
+        <td class="num">${num(o.quantity)}</td>
+        <td class="num" style="font-weight:500">${money(o.total)}</td>
+        <td>${pay}</td>
+        <td>${loc}</td>
+        <td>${sel}</td>
+        <td class="muted">${fmtDateTime(o.createdAt)}</td>
+        <td>${o.status !== 'cancelled' && bal > 0.009 ? `<button class="btn small" onclick="openPayment({orderId:${o.id}})">Cobrar</button>` : ''}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function stat(label, value, cls, sub) {
+    return `<div class="stat"><div class="stat-label">${label}</div><div class="stat-value ${cls || ''}">${value}</div>${sub ? `<div class="stat-sub">${sub}</div>` : ''}</div>`;
+  }
+
+  async function updateStatus(id, sel) {
+    const status = sel.value;
+    if (status === 'cancelled' && !confirm('¿Cancelar el pedido #' + id + '? Los cartones regresan al inventario.')) {
+      sel.value = sel.dataset.prev; sel.blur(); return;
+    }
+    try {
+      await api('/api/orders/' + id + '/status', { status });
+      showToast('✅ Estado actualizado');
+    } catch (e) {
+      showToast('⚠️ ' + e.message, true);
+    }
+    sel.blur();
+    loadData(true);
+  }
+
+  // ─── Inventario ───────────────────────────────────────────────────────────
+  function renderInventory() {
+    document.getElementById('invGrid').innerHTML = Object.entries(DATA.inventory).map(([key, inv]) => {
+      const pct = Math.min(100, Math.round(inv.stock));
       const low = inv.stock < 10;
       return `
         <div class="inv-card">
           <div class="inv-top">
             <div>
-              <div class="inv-name">${inv.label}</div>
-              <div class="inv-price">$${inv.price} MXN por cartón</div>
+              <div class="inv-name">${esc(inv.label)}</div>
+              <div class="inv-price">${money(inv.price)} por cartón · ${inv.pieces} huevos</div>
             </div>
-            <div class="inv-count ${low ? 'low' : 'ok'}">${inv.stock}</div>
+            <div class="inv-count ${low ? 'low' : 'ok'}">${num(inv.stock)}</div>
           </div>
-          <div class="bar">
-            <div class="bar-fill ${low ? 'low' : 'ok'}" style="width:${pct}%"></div>
+          <div class="bar"><div class="bar-fill ${low ? 'low' : 'ok'}" style="width:${pct}%"></div></div>
+          <div class="row">
+            <label>Llegaron cartones</label>
+            <input type="number" id="add_${key}" min="1" placeholder="+0">
+            <input type="text" id="note_${key}" placeholder="Nota (opcional)" style="flex:1;min-width:100px">
+            <button class="btn" onclick="addStock('${key}')">Agregar</button>
           </div>
-          <div class="stock-row">
-            <label>Stock:</label>
-            <input type="number" id="stock_${key}" value="${inv.stock}" min="0" max="9999">
-            <label>Precio $:</label>
-            <input type="number" id="price_${key}" value="${inv.price}" min="1" max="99999">
-            <button class="btn-save" onclick="saveStock('${key}')">Guardar</button>
+          <div class="row">
+            <label>Conteo real</label>
+            <input type="number" id="count_${key}" min="0" placeholder="${inv.stock}">
+            <button class="btn secondary" onclick="adjustStock('${key}')">Ajustar</button>
+          </div>
+          <div class="row">
+            <label>Precio $</label>
+            <input type="number" id="price_${key}" min="1" value="${inv.price}">
+            <button class="btn secondary" onclick="savePrice('${key}')">Guardar precio</button>
           </div>
         </div>`;
     }).join('');
 
-    // Orders table (skip redraw while a status dropdown is open)
-    if (ae && ae.closest && ae.closest('#ordersBody')) return;
-    const sorted = [...data.orders].reverse();
-    if (!sorted.length) {
-      document.getElementById('ordersBody').innerHTML =
-        '<tr class="empty-row"><td colspan="8">Aún no hay pedidos 🌻</td></tr>';
-      return;
-    }
-
-    document.getElementById('ordersBody').innerHTML = sorted.slice(0, 100).map(o => {
-      const dt   = new Date(o.createdAt);
-      const time = dt.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-      const date = dt.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' });
-      const mapUrl = o.location
-        ? `https://maps.google.com/?q=${o.location.latitude},${o.location.longitude}`
-        : null;
-      const locCell = mapUrl
-        ? `<a class="map-link" href="${mapUrl}" target="_blank">📍 Ver mapa</a>`
-        : '<span style="color:#ccc">—</span>';
-
-      const phoneDigits = (o.phone || '').replace(/\D/g, '');
-      const phoneShown  = (o.phone || '').replace('whatsapp:', '');
-      const phoneCell = phoneDigits
-        ? `<a class="map-link" href="https://wa.me/${phoneDigits}" target="_blank">💬 ${phoneShown}</a>`
-        : '<span style="color:#ccc">—</span>';
-
-      const statusOptions = [
-        { value: 'accepted',  label: 'Aceptado',  cls: 'pill-green'  },
-        { value: 'preparing', label: 'En camino', cls: 'pill-yellow' },
-        { value: 'delivered', label: 'Entregado', cls: 'pill-blue'   },
-        { value: 'cancelled', label: 'Cancelado', cls: 'pill-red'    },
-      ];
-      const statusSel = `
-        <select onchange="updateStatus(${o.id}, this.value)">
-          ${statusOptions.map(s =>
-            `<option value="${s.value}" ${o.status === s.value ? 'selected' : ''}>${s.label}</option>`
-          ).join('')}
-        </select>`;
-
+    const moves = [...DATA.stockMoves].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 100);
+    document.getElementById('movesBody').innerHTML = moves.length ? moves.map(m => {
+      const inv = DATA.inventory[m.product];
       return `<tr>
-        <td style="font-weight:600;color:#7c4f1a">#${o.id}</td>
-        <td>${phoneCell}</td>
-        <td>${o.productLabel}</td>
-        <td>${o.quantity}</td>
-        <td style="font-weight:500">$${o.total}</td>
-        <td>${locCell}</td>
-        <td>${statusSel}</td>
-        <td style="color:#aaa;font-size:12px">${date} · ${time}</td>
+        <td class="muted">${fmtDateTime(m.createdAt)}</td>
+        <td>${esc(inv ? inv.label : m.product)}</td>
+        <td class="num" style="font-weight:600;color:${m.change < 0 ? '#c0392b' : '#2e7d32'}">${m.change > 0 ? '+' : ''}${m.change}</td>
+        <td>${MOVE_REASONS[m.reason] || esc(m.reason)}</td>
+        <td>${m.orderId ? '#' + m.orderId : '<span class="muted">—</span>'}</td>
+        <td class="num">${num(m.stockAfter)}</td>
+        <td class="muted">${esc(m.note)}</td>
       </tr>`;
-    }).join('');
+    }).join('') : '<tr class="empty-row"><td colspan="7">Aún no hay movimientos. Se registran desde ahora.</td></tr>';
   }
 
-  async function saveStock(product) {
-    const stock = document.getElementById('stock_' + product).value;
-    const price = document.getElementById('price_' + product).value;
-    const r = await fetch('/api/inventory', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ product, stock, price })
-    });
-    if (r.ok) {
-      showToast('✅ Inventario actualizado');
-      if (document.activeElement) document.activeElement.blur();
-      await loadData();
+  async function addStock(key) {
+    const add = document.getElementById('add_' + key).value;
+    const note = document.getElementById('note_' + key).value;
+    if (!add || Number(add) <= 0) return showToast('Escribe cuántos cartones llegaron', true);
+    try { await api('/api/inventory', { product: key, add, note }); showToast('✅ Stock agregado'); }
+    catch (e) { showToast('⚠️ ' + e.message, true); }
+    document.activeElement && document.activeElement.blur();
+    loadData(true);
+  }
+  async function adjustStock(key) {
+    const stock = document.getElementById('count_' + key).value;
+    if (stock === '') return showToast('Escribe el conteo real', true);
+    try { await api('/api/inventory', { product: key, stock, note: 'Conteo manual' }); showToast('✅ Inventario ajustado'); }
+    catch (e) { showToast('⚠️ ' + e.message, true); }
+    document.activeElement && document.activeElement.blur();
+    loadData(true);
+  }
+  async function savePrice(key) {
+    const price = document.getElementById('price_' + key).value;
+    try { await api('/api/inventory', { product: key, price }); showToast('✅ Precio actualizado'); }
+    catch (e) { showToast('⚠️ ' + e.message, true); }
+    document.activeElement && document.activeElement.blur();
+    loadData(true);
+  }
+
+  // ─── Reportes ─────────────────────────────────────────────────────────────
+  function periodRange() {
+    const sel = document.getElementById('periodSel').value;
+    const now = new Date();
+    const d = (y, m, day) => dayKey(new Date(y, m, day));
+    const y = now.getFullYear(), m = now.getMonth(), day = now.getDate();
+    const dow = (now.getDay() + 6) % 7; // Monday = 0
+    switch (sel) {
+      case 'today':     return [d(y, m, day), d(y, m, day), 'Hoy'];
+      case 'yesterday': return [d(y, m, day - 1), d(y, m, day - 1), 'Ayer'];
+      case 'week':      return [d(y, m, day - dow), d(y, m, day), 'Esta semana'];
+      case 'lastweek':  return [d(y, m, day - dow - 7), d(y, m, day - dow - 1), 'Semana pasada'];
+      case 'month':     return [d(y, m, 1), d(y, m + 1, 0), now.toLocaleDateString('es-MX', { month: 'long', year: 'numeric' })];
+      case 'lastmonth': return [d(y, m - 1, 1), d(y, m, 0), new Date(y, m - 1, 1).toLocaleDateString('es-MX', { month: 'long', year: 'numeric' })];
+      case 'year':      return [d(y, 0, 1), d(y, 11, 31), String(y)];
+      default: {
+        const f = document.getElementById('fromDate').value || d(y, m, 1);
+        const t = document.getElementById('toDate').value || d(y, m, day);
+        return f <= t ? [f, t, 'Personalizado'] : [t, f, 'Personalizado'];
+      }
     }
   }
 
-  async function updateStatus(id, status) {
-    await fetch('/api/orders/' + id + '/status', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    });
-    showToast('✅ Estado actualizado');
-    if (document.activeElement) document.activeElement.blur();
-    await loadData();
+  function periodData() {
+    const [from, to, label] = periodRange();
+    const inRange = k => k >= from && k <= to;
+    const orders = DATA.orders.filter(o => o.status !== 'cancelled' && inRange(dayKey(o.createdAt)));
+    const payments = DATA.payments.filter(p => inRange(p.date));
+    return { from, to, label, orders, payments };
   }
 
-  loadData();
-  setInterval(loadData, 15000);
+  function renderReports() {
+    const { from, to, orders, payments } = periodData();
+    document.getElementById('customRange').classList.toggle('hidden', document.getElementById('periodSel').value !== 'custom');
+    document.getElementById('periodLabel').textContent = from === to ? fmtDay(from) : fmtDay(from) + ' – ' + fmtDay(to);
+
+    const sold = orders.reduce((s, o) => s + o.total, 0);
+    const pieces = orders.reduce((s, o) => s + (o.pieces || 0), 0);
+    const collected = payments.reduce((s, p) => s + p.amount, 0);
+    const pending = orders.reduce((s, o) => s + Math.max(0, orderBalance(o)), 0);
+    document.getElementById('reportStats').innerHTML = [
+      stat('Pedidos', num(orders.length)),
+      stat('Huevos vendidos', num(pieces), '', 'piezas'),
+      stat('Total vendido', money(sold)),
+      stat('Cobrado', money(collected), '', 'pagos recibidos en el periodo'),
+      stat('Pendiente de cobro', money(pending), pending > 0 ? 'warn' : '', 'de los pedidos del periodo'),
+      stat('Ticket promedio', money(orders.length ? sold / orders.length : 0)),
+    ].join('');
+
+    // By product
+    const prod = {};
+    orders.forEach(o => {
+      const k = o.productLabel;
+      prod[k] = prod[k] || { orders: 0, qty: 0, pieces: 0, total: 0 };
+      prod[k].orders++; prod[k].qty += o.quantity; prod[k].pieces += o.pieces || 0; prod[k].total += o.total;
+    });
+    const prodRows = Object.entries(prod).sort((a, b) => b[1].total - a[1].total);
+    document.getElementById('byProduct').innerHTML = prodRows.length ? prodRows.map(([k, v]) =>
+      `<tr><td>${esc(k)}</td><td class="num">${num(v.orders)}</td><td class="num">${num(v.qty)}</td><td class="num">${num(v.pieces)}</td><td class="num">${money(v.total)}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="5">Sin ventas en este periodo</td></tr>';
+    document.getElementById('byProductFoot').innerHTML = prodRows.length
+      ? `<tr><td>Total</td><td class="num">${num(orders.length)}</td><td class="num">${num(orders.reduce((s, o) => s + o.quantity, 0))}</td><td class="num">${num(pieces)}</td><td class="num">${money(sold)}</td></tr>` : '';
+
+    // By method
+    const meth = {};
+    payments.forEach(p => { meth[p.method] = meth[p.method] || { n: 0, total: 0 }; meth[p.method].n++; meth[p.method].total += p.amount; });
+    const methRows = Object.entries(meth).sort((a, b) => b[1].total - a[1].total);
+    document.getElementById('byMethod').innerHTML = methRows.length ? methRows.map(([k, v]) =>
+      `<tr><td>${METHODS[k] || esc(k)}</td><td class="num">${num(v.n)}</td><td class="num">${money(v.total)}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="3">Sin cobros en este periodo</td></tr>';
+    document.getElementById('byMethodFoot').innerHTML = methRows.length
+      ? `<tr><td>Total</td><td class="num">${num(payments.length)}</td><td class="num">${money(collected)}</td></tr>` : '';
+
+    // By day
+    const days = {};
+    orders.forEach(o => { const k = dayKey(o.createdAt); days[k] = days[k] || { orders: 0, pieces: 0, sold: 0, collected: 0 }; days[k].orders++; days[k].pieces += o.pieces || 0; days[k].sold += o.total; });
+    payments.forEach(p => { days[p.date] = days[p.date] || { orders: 0, pieces: 0, sold: 0, collected: 0 }; days[p.date].collected += p.amount; });
+    const dayRows = Object.entries(days).sort((a, b) => b[0].localeCompare(a[0]));
+    document.getElementById('byDay').innerHTML = dayRows.length ? dayRows.map(([k, v]) =>
+      `<tr><td>${fmtDay(k)}</td><td class="num">${num(v.orders)}</td><td class="num">${num(v.pieces)}</td><td class="num">${money(v.sold)}</td><td class="num">${money(v.collected)}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="5">Sin movimientos en este periodo</td></tr>';
+    document.getElementById('byDayFoot').innerHTML = dayRows.length
+      ? `<tr><td>Total</td><td class="num">${num(orders.length)}</td><td class="num">${num(pieces)}</td><td class="num">${money(sold)}</td><td class="num">${money(collected)}</td></tr>` : '';
+
+    // By customer (period)
+    const cust = {};
+    orders.forEach(o => { const c = cust[o.customerId] = cust[o.customerId] || { orders: 0, pieces: 0, sold: 0, collected: 0 }; c.orders++; c.pieces += o.pieces || 0; c.sold += o.total; });
+    payments.forEach(p => { const c = cust[p.customerId] = cust[p.customerId] || { orders: 0, pieces: 0, sold: 0, collected: 0 }; c.collected += p.amount; });
+    const custRows = Object.entries(cust).sort((a, b) => b[1].sold - a[1].sold);
+    document.getElementById('byCustomer').innerHTML = custRows.length ? custRows.map(([id, v]) =>
+      `<tr><td>${esc(customerName(CALC.custById[id]))}</td><td class="num">${num(v.orders)}</td><td class="num">${num(v.pieces)}</td><td class="num">${money(v.sold)}</td><td class="num">${money(v.collected)}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="5">Sin clientes en este periodo</td></tr>';
+
+    // Receivables (all time)
+    const recv = DATA.customers.map(c => ({ c, s: CALC.custStats[c.id] })).filter(x => x.s && x.s.balance > 0.009).sort((a, b) => b.s.balance - a.s.balance);
+    document.getElementById('receivables').innerHTML = recv.length ? recv.map(({ c, s }) =>
+      `<tr><td>${esc(customerName(c))}</td><td class="muted">${esc(c.phone)}</td><td class="num">${money(s.billed)}</td><td class="num">${money(s.paid)}</td>
+       <td class="num" style="font-weight:600;color:#c0392b">${money(s.balance)}</td>
+       <td><button class="btn small" onclick="openPayment({customerId:${c.id}})">Registrar pago</button></td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="6">Nadie debe nada 🎉</td></tr>';
+    const totalOwed = recv.reduce((s, x) => s + x.s.balance, 0);
+    document.getElementById('receivablesFoot').innerHTML = recv.length
+      ? `<tr><td colspan="4">Total por cobrar</td><td class="num">${money(totalOwed)}</td><td></td></tr>` : '';
+  }
+
+  // CSV export (opens in Excel / Google Sheets)
+  function csvCell(v) {
+    let s = String(v ?? '');
+    if (/^[=+\-@]/.test(s)) s = "'" + s;     // stop spreadsheet formulas
+    return /[",\n;]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  function downloadCsv(name, rows) {
+    const csv = '﻿' + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  function exportSales() {
+    const { from, to } = periodData();
+    const inRange = k => k >= from && k <= to;
+    const orders = DATA.orders.filter(o => inRange(dayKey(o.createdAt))).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    const rows = [['Pedido', 'Fecha', 'Cliente', 'Teléfono', 'Zona', 'Producto', 'Cantidad', 'Piezas', 'Precio unitario', 'Total', 'Pagado', 'Saldo', 'Estado', 'Origen', 'Nota']];
+    orders.forEach(o => {
+      const c = CALC.custById[o.customerId] || {};
+      const paid = o.status === 'cancelled' ? 0 : (CALC.paidByOrder[o.id] || 0);
+      rows.push([o.id, dayKey(o.createdAt), customerName(c), c.phone || '', c.zone || '', o.productLabel, o.quantity, o.pieces || 0,
+        o.unitPrice, o.total, paid, orderBalance(o), (STATUS[o.status] || {}).label || o.status, o.source === 'manual' ? 'Manual' : 'WhatsApp', o.note || '']);
+    });
+    downloadCsv(`ventas_${from}_a_${to}.csv`, rows);
+  }
+  function exportPayments() {
+    const { from, to, payments } = periodData();
+    const rows = [['Fecha', 'Cliente', 'Teléfono', 'Pedido', 'Monto', 'Método', 'Nota']];
+    [...payments].sort((a, b) => a.date.localeCompare(b.date)).forEach(p => {
+      const c = CALC.custById[p.customerId] || {};
+      rows.push([p.date, customerName(c), c.phone || '', p.orderId ? '#' + p.orderId : 'General', p.amount, METHODS[p.method] || p.method, p.note || '']);
+    });
+    downloadCsv(`pagos_${from}_a_${to}.csv`, rows);
+  }
+
+  // ─── Clientes ─────────────────────────────────────────────────────────────
+  function renderCustomers() {
+    const q = document.getElementById('custSearch').value.trim().toLowerCase();
+    let list = DATA.customers.map(c => ({ c, s: CALC.custStats[c.id] || {} }));
+    if (q) list = list.filter(({ c }) => [c.name, c.phone, c.zone, c.address].join(' ').toLowerCase().includes(q));
+    list.sort((a, b) => (b.s.lastOrder || '').localeCompare(a.s.lastOrder || '') || customerName(a.c).localeCompare(customerName(b.c)));
+    const body = document.getElementById('customersBody');
+    if (!list.length) { body.innerHTML = '<tr class="empty-row"><td colspan="9">Sin clientes todavía</td></tr>'; return; }
+    body.innerHTML = list.map(({ c, s }) => `<tr>
+      <td style="font-weight:500">${esc(customerName(c))}${c.notes ? `<div class="muted">${esc(c.notes)}</div>` : ''}</td>
+      <td>${c.phone ? `<a class="link" href="https://wa.me/${esc(c.phone.replace(/\D/g, ''))}" target="_blank" rel="noopener">💬 ${esc(c.phone)}</a>` : '<span class="muted">—</span>'}</td>
+      <td>${esc(c.zone) || '<span class="muted">—</span>'}</td>
+      <td class="num">${num(s.orders)}</td>
+      <td class="num">${money(s.billed)}</td>
+      <td class="num">${money(s.paid)}</td>
+      <td class="num" style="font-weight:600;color:${s.balance > 0.009 ? '#c0392b' : s.balance < -0.009 ? '#2e7d32' : 'inherit'}">${money(s.balance)}</td>
+      <td class="muted">${s.lastOrder ? fmtDateTime(s.lastOrder) : '—'}</td>
+      <td style="white-space:nowrap">
+        <button class="btn small secondary" onclick="openCustomer(${c.id})">Ver / editar</button>
+        <button class="btn small" onclick="openPayment({customerId:${c.id}})">Pago</button>
+      </td>
+    </tr>`).join('');
+  }
+
+  // ─── Modals ───────────────────────────────────────────────────────────────
+  function openModal(title, html, okLabel, onOk) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('modalError').textContent = '';
+    const ok = document.getElementById('modalOk');
+    ok.textContent = okLabel || 'Guardar';
+    ok.disabled = false;
+    modalOkHandler = onOk;
+    document.getElementById('modal').classList.remove('hidden');
+    const first = document.querySelector('#modalBody input, #modalBody select');
+    if (first) first.focus();
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+    modalOkHandler = null;
+    loadData(true);
+  }
+  document.getElementById('modalOk').addEventListener('click', async () => {
+    if (!modalOkHandler) return;
+    const ok = document.getElementById('modalOk');
+    ok.disabled = true;
+    try {
+      const msg = await modalOkHandler();
+      closeModal();
+      if (msg) showToast(msg);
+    } catch (e) {
+      document.getElementById('modalError').textContent = '⚠️ ' + e.message;
+      ok.disabled = false;
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !document.getElementById('modal').classList.contains('hidden')) closeModal();
+  });
+  const val = id => document.getElementById(id).value;
+
+  function methodOptions(selected) {
+    return Object.entries(METHODS).map(([k, v]) => `<option value="${k}" ${k === selected ? 'selected' : ''}>${v}</option>`).join('');
+  }
+
+  // Payment for an order, or a general payment for a customer
+  function openPayment({ orderId, customerId }) {
+    let order = null, cust, suggested;
+    if (orderId) {
+      order = DATA.orders.find(o => o.id === orderId);
+      cust = CALC.custById[order.customerId];
+      suggested = orderBalance(order);
+    } else {
+      cust = CALC.custById[customerId];
+      suggested = Math.max(0, (CALC.custStats[customerId] || {}).balance || 0);
+    }
+    const info = order
+      ? `Pedido #${order.id} · ${esc(order.productLabel)} × ${order.quantity} · Total ${money(order.total)} · Debe ${money(suggested)}`
+      : `Saldo actual: ${money(suggested)}. Se aplica a sus pedidos más antiguos primero.`;
+    openModal(`Registrar pago — ${customerName(cust)}`, `
+      <p class="muted" style="margin-bottom:12px">${info}</p>
+      <div class="field-row">
+        <div class="field"><label>Monto $</label><input type="number" id="payAmount" min="0" step="0.01" value="${suggested > 0 ? suggested : ''}"></div>
+        <div class="field"><label>Método</label><select id="payMethod" class="wide">${methodOptions('efectivo')}</select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Fecha del pago</label><input type="date" id="payDate" value="${todayKey()}"></div>
+        <div class="field"><label>Nota (opcional)</label><input type="text" id="payNote" placeholder="ej. transferencia Caro"></div>
+      </div>`, 'Registrar pago', async () => {
+      await api('/api/payments', {
+        orderId: order ? order.id : null,
+        customerId: cust.id,
+        amount: val('payAmount'),
+        method: val('payMethod'),
+        date: val('payDate'),
+        note: val('payNote'),
+      });
+      return '✅ Pago registrado';
+    });
+  }
+
+  // Manual order (phone, wholesale, walk-in)
+  function openNewOrder() {
+    const custs = [...DATA.customers].sort((a, b) => customerName(a).localeCompare(customerName(b)));
+    const prodOpts = Object.entries(DATA.inventory).map(([k, v]) => `<option value="${k}">${esc(v.label)} — ${money(v.price)} (stock ${v.stock})</option>`).join('');
+    openModal('Nuevo pedido manual', `
+      <div class="field"><label>Cliente</label>
+        <select id="noCust" class="wide">
+          <option value="">— Cliente nuevo —</option>
+          ${custs.map(c => `<option value="${c.id}">${esc(customerName(c))}${c.phone && c.name ? ' · ' + esc(c.phone) : ''}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field-row" id="noNewCust">
+        <div class="field"><label>Nombre</label><input type="text" id="noName"></div>
+        <div class="field"><label>Teléfono</label><input type="tel" id="noPhone" placeholder="+52…"></div>
+      </div>
+      <div class="field"><label>Producto</label>
+        <select id="noProd" class="wide">${prodOpts}<option value="otro">Otro / mayoreo (rejas, huevo suelto…)</option></select>
+      </div>
+      <div class="field-row hidden" id="noOther">
+        <div class="field"><label>Descripción</label><input type="text" id="noDesc" placeholder="ej. Reja huevo grande"></div>
+        <div class="field"><label>Huevos por unidad</label><input type="number" id="noPieces" min="0" placeholder="ej. 360"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Cantidad</label><input type="number" id="noQty" min="1" value="1"></div>
+        <div class="field"><label>Precio por unidad $</label><input type="number" id="noPrice" min="0" step="0.01"></div>
+      </div>
+      <div class="total-preview" id="noTotal"></div>
+      <div class="field-row" style="margin-top:10px">
+        <div class="field"><label>Fecha del pedido</label><input type="date" id="noDate" value="${todayKey()}"></div>
+        <div class="field"><label>Estado</label><select id="noStatus" class="wide">
+          ${Object.entries(STATUS).filter(([k]) => k !== 'cancelled').map(([k, s]) => `<option value="${k}">${s.label}</option>`).join('')}
+        </select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Ya pagó $ (opcional)</label><input type="number" id="noPaid" min="0" step="0.01" placeholder="0"></div>
+        <div class="field"><label>Método</label><select id="noPayMethod" class="wide">${methodOptions('efectivo')}</select></div>
+      </div>
+      <div class="field"><label>Nota (opcional)</label><input type="text" id="noNote" class="wide"></div>`,
+      'Crear pedido', async () => {
+        const res = await api('/api/orders', {
+          customerId: val('noCust') || null,
+          customerName: val('noName'),
+          customerPhone: val('noPhone'),
+          product: val('noProd'),
+          description: val('noDesc'),
+          piecesPerUnit: val('noPieces'),
+          quantity: val('noQty'),
+          unitPrice: val('noPrice'),
+          date: val('noDate'),
+          status: val('noStatus'),
+          paidAmount: val('noPaid'),
+          payMethod: val('noPayMethod'),
+          note: val('noNote'),
+        });
+        return `✅ Pedido #${res.order.id} creado`;
+      });
+
+    const sync = () => {
+      document.getElementById('noNewCust').classList.toggle('hidden', !!val('noCust'));
+      const p = val('noProd');
+      document.getElementById('noOther').classList.toggle('hidden', p !== 'otro');
+      const total = (Number(val('noQty')) || 0) * (Number(val('noPrice')) || 0);
+      document.getElementById('noTotal').textContent = 'Total: ' + money(total);
+    };
+    const setPrice = () => {
+      const inv = DATA.inventory[val('noProd')];
+      document.getElementById('noPrice').value = inv ? inv.price : '';
+      sync();
+    };
+    ['noCust', 'noQty', 'noPrice'].forEach(id => document.getElementById(id).addEventListener('input', sync));
+    document.getElementById('noProd').addEventListener('change', setPrice);
+    setPrice();
+  }
+
+  // Customer details: edit info, see their orders and payments, delete a mistaken payment
+  function openCustomer(id) {
+    const c = id ? CALC.custById[id] : { name: '', phone: '', zone: '', address: '', mapsUrl: '', notes: '' };
+    const s = id ? CALC.custStats[id] : null;
+    let history = '';
+    if (id) {
+      const orders = DATA.orders.filter(o => o.customerId === id).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 15);
+      const pays = DATA.payments.filter(p => p.customerId === id).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 15);
+      history = `
+        <p style="margin:14px 0 6px;font-weight:600;color:#7c4f1a">Comprado ${money(s.billed)} · Pagado ${money(s.paid)} · Saldo ${money(s.balance)}</p>
+        <div class="table-wrap" style="margin-bottom:10px"><table>
+          <thead><tr><th>Pedido</th><th>Fecha</th><th class="num">Total</th><th>Estado</th></tr></thead>
+          <tbody>${orders.length ? orders.map(o => `<tr><td>#${o.id} ${esc(o.productLabel)} × ${o.quantity}</td><td class="muted">${dayKey(o.createdAt)}</td><td class="num">${money(o.total)}</td><td>${STATUS[o.status].label}</td></tr>`).join('') : '<tr class="empty-row"><td colspan="4">Sin pedidos</td></tr>'}</tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Pago</th><th>Fecha</th><th class="num">Monto</th><th></th></tr></thead>
+          <tbody>${pays.length ? pays.map(p => `<tr><td>${METHODS[p.method] || esc(p.method)}${p.orderId ? ' · #' + p.orderId : ''}${p.note ? `<div class="muted">${esc(p.note)}</div>` : ''}</td><td class="muted">${p.date}</td><td class="num">${money(p.amount)}</td><td><button class="btn small danger" onclick="deletePayment(${p.id}, ${id})">Borrar</button></td></tr>`).join('') : '<tr class="empty-row"><td colspan="4">Sin pagos</td></tr>'}</tbody>
+        </table></div>`;
+    }
+    openModal(id ? customerName(c) : 'Nuevo cliente', `
+      <div class="field-row">
+        <div class="field"><label>Nombre</label><input type="text" id="cuName" value="${esc(c.name)}"></div>
+        <div class="field"><label>Teléfono</label><input type="tel" id="cuPhone" value="${esc(c.phone)}" placeholder="+52…"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Colonia / zona</label><input type="text" id="cuZone" value="${esc(c.zone)}"></div>
+        <div class="field"><label>Liga de Google Maps</label><input type="url" id="cuMaps" value="${esc(c.mapsUrl)}"></div>
+      </div>
+      <div class="field"><label>Dirección / referencias</label><input type="text" id="cuAddr" class="wide" value="${esc(c.address)}"></div>
+      <div class="field"><label>Notas</label><input type="text" id="cuNotes" class="wide" value="${esc(c.notes)}" placeholder="ej. mayoreo, paga semanal"></div>
+      ${history}`, 'Guardar', async () => {
+      const body = { name: val('cuName'), phone: val('cuPhone'), zone: val('cuZone'), mapsUrl: val('cuMaps'), address: val('cuAddr'), notes: val('cuNotes') };
+      await api(id ? '/api/customers/' + id : '/api/customers', body);
+      return '✅ Cliente guardado';
+    });
+  }
+
+  async function deletePayment(paymentId, customerId) {
+    if (!confirm('¿Borrar este pago? Úsalo solo para corregir un error.')) return;
+    try {
+      await api('/api/payments/' + paymentId, null, 'DELETE');
+      showToast('🗑️ Pago borrado');
+      await loadData(true);
+      openCustomer(customerId);
+    } catch (e) { showToast('⚠️ ' + e.message, true); }
+  }
+
+  // ─── Tabs & controls ──────────────────────────────────────────────────────
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + tab));
+    try { localStorage.setItem('cys_tab', tab); } catch (e) {}
+  }
+  document.getElementById('tabs').addEventListener('click', e => { if (e.target.dataset.tab) setTab(e.target.dataset.tab); });
+  document.getElementById('orderFilter').addEventListener('change', () => { renderOrders(); document.activeElement.blur(); });
+  document.getElementById('custSearch').addEventListener('input', renderCustomers);
+  document.getElementById('periodSel').addEventListener('change', () => {
+    try { localStorage.setItem('cys_period', val('periodSel')); } catch (e) {}
+    renderReports(); document.activeElement.blur();
+  });
+  ['fromDate', 'toDate'].forEach(id => document.getElementById(id).addEventListener('change', () => { renderReports(); }));
+
+  async function resetDemo() {
+    if (!confirm('¿Borrar los cambios de práctica y generar datos demo nuevos?')) return;
+    try { await api('/api/reset', {}); showToast('🔄 Datos demo reiniciados'); }
+    catch (e) { showToast('⚠️ ' + e.message, true); }
+    loadData(true);
+  }
+
+  if (DEMO) {
+    document.getElementById('demoBanner').classList.remove('hidden');
+    document.querySelector('.badge').textContent = '🧪 Demo';
+    document.querySelector('.badge').style.cssText = 'background:#fff3cd;color:#7a5b00';
+    document.title = 'Clara y Sol — DEMO';
+    document.getElementById('demoLink').classList.add('hidden');
+  }
+
+  try {
+    const t = localStorage.getItem('cys_tab'); if (t) setTab(t);
+    const p = localStorage.getItem('cys_period'); if (p && p !== 'custom') document.getElementById('periodSel').value = p;
+  } catch (e) {}
+
+  loadData(true);
+  setInterval(() => loadData(false), 15000);
 </script>
 </body>
 </html>
