@@ -41,6 +41,35 @@ Se cambian desde el **dashboard** (campos Stock y Precio → Guardar).
 
 ## Dashboard
 
-- Pedidos con teléfono del cliente (toca para abrir WhatsApp) y ubicación (toca para abrir el mapa)
-- Cambia el estado: Aceptado → En camino → Entregado / Cancelado
-- Se actualiza solo cada 15 segundos
+**📦 Pedidos**
+- Pedidos de WhatsApp y pedidos manuales (por teléfono, mayoreo, rejas, huevo suelto)
+- Cliente (toca para abrir WhatsApp), ubicación (toca para abrir el mapa) y estado de pago
+- Cambia el estado: Aceptado → En camino → Entregado / Cancelado.
+  Al **cancelar**, los cartones regresan solos al inventario.
+- Botón **Cobrar** para registrar un pago (efectivo, transferencia, tarjeta, otro)
+
+**🥚 Inventario**
+- "Llegaron cartones" suma stock; "Conteo real" ajusta al número exacto; precio por cartón
+- Historial de movimientos: entradas, pedidos, cancelaciones y ajustes
+
+**📊 Reportes** (hoy, semana, mes, año o fechas a elegir)
+- Pedidos, huevos vendidos, total vendido, cobrado, pendiente de cobro, ticket promedio
+- Por producto, por día, por cliente y cobros por método de pago
+- Cuentas por cobrar: quién debe y cuánto (los pagos generales se aplican a los pedidos más antiguos)
+- Descarga a CSV (abre en Excel o Google Sheets)
+
+**👥 Clientes**
+- Se crean solos con cada pedido de WhatsApp (con el nombre de su perfil)
+- Edita nombre, zona, dirección, liga de mapa y notas; ve su historial y saldo
+
+Se actualiza solo cada 15 segundos.
+
+**🧪 Demo** — `https://TU-URL.up.railway.app/demo` (mismo usuario y contraseña)
+- El mismo dashboard con ~3 meses de pedidos, clientes y pagos inventados, para practicar y ver los reportes.
+- Se guarda aparte (`demo-data.json`): nunca toca tus pedidos, inventario ni el bot.
+- Botón "Reiniciar datos demo" para empezar de nuevo.
+
+## Revisar que el bot está vivo
+
+- Abre `https://TU-URL.up.railway.app/webhook` en el navegador: debe decir "el webhook está activo".
+- En los logs de Railway cada mensaje aparece como `📩 … | texto: "…"` seguido de `↳ respuesta: …`.
