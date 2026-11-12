@@ -1,0 +1,16 @@
+{
+  "inventory": {
+    "grande": {
+      "label": "Grande (18 huevos)",
+      "price": 100,
+      "stock": 50
+    },
+    "extra": {
+      "label": "Extra (30 huevos)",
+      "price": 165,
+      "stock": 30
+    }
+  },
+  "orders": [],
+  "nextOrderId": 1
+}
